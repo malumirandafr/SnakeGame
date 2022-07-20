@@ -3,17 +3,14 @@ import java.awt.Color;
 
 public class DataOfSquare {
 
-
-    //ArrayList that'll contain the colors
     ArrayList<Color> C =new ArrayList<Color>();
-    int color; //2: snake , 1: food, 0:empty
+    int color;
     SquarePanel square;
     public DataOfSquare(int col){
 
-        //Lets add the color to the arrayList
-        C.add(Color.pink);//0
-        C.add(Color.MAGENTA);    //1
-        C.add(Color.white);   //2
+        C.add(Color.green);
+        C.add(Color.red);
+        C.add(Color.black);
         color=col;
         square = new SquarePanel(C.get(color));
     }

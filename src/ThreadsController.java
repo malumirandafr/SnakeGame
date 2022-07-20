@@ -1,7 +1,5 @@
 import java.util.ArrayList;
 
-
-//Controls all the game logic .. most important class in this project.
 public class ThreadsController extends Thread {
     ArrayList<ArrayList<DataOfSquare>> Squares= new ArrayList<ArrayList<DataOfSquare>>();
     Tuple headSnakePos;
@@ -12,9 +10,8 @@ public class ThreadsController extends Thread {
     ArrayList<Tuple> positions = new ArrayList<Tuple>();
     Tuple foodPosition;
 
-    //Constructor of ControlleurThread
     ThreadsController(Tuple positionDepart){
-        //Get all the threads
+
         Squares=Window.Grid;
 
         headSnakePos=new Tuple(positionDepart.x,positionDepart.y);
@@ -29,7 +26,6 @@ public class ThreadsController extends Thread {
 
     }
 
-    //Important part :
     public void run() {
         while(true){
             moveInterne(directionSnake);
@@ -40,7 +36,6 @@ public class ThreadsController extends Thread {
         }
     }
 
-    //delay between each move of the snake
     private void pauser(){
         try {
             sleep(speed);
@@ -49,7 +44,6 @@ public class ThreadsController extends Thread {
         }
     }
 
-    //Checking if the snake bites itself or is eating
     private void checkCollision() {
         Tuple posCritique = positions.get(positions.size()-1);
         for(int i = 0;i<=positions.size()-2;i++){
@@ -69,7 +63,6 @@ public class ThreadsController extends Thread {
         }
     }
 
-    //Stops The Game
     private void stopTheGame(){
         System.out.println("COLISION! \n");
         while(true){
@@ -77,12 +70,10 @@ public class ThreadsController extends Thread {
         }
     }
 
-    //Put food in a position and displays it
     private void spawnFood(Tuple foodPositionIn){
         Squares.get(foodPositionIn.x).get(foodPositionIn.y).lightMeUp(1);
     }
 
-    //return a position not occupied by the snake
     private Tuple getValAleaNotInSnake(){
         Tuple p ;
         int ranX= 0 + (int)(Math.random()*19);
@@ -99,8 +90,6 @@ public class ThreadsController extends Thread {
         return p;
     }
 
-    //Moves the head of the snake and refreshes the positions in the arraylist
-    //1:right 2:left 3:top 4:bottom 0:nothing
     private void moveInterne(int dir){
         switch(dir){
             case 4:
@@ -133,7 +122,6 @@ public class ThreadsController extends Thread {
         }
     }
 
-    //Refresh the squares that needs to be
     private void moveExterne(){
         for(Tuple t : positions){
             int y = t.getX();
@@ -142,9 +130,6 @@ public class ThreadsController extends Thread {
 
         }
     }
-
-    //Refreshes the tail of the snake, by removing the superfluous data in positions arraylist
-    //and refreshing the display of the things that is removed
     private void deleteTail(){
         int cmpt = sizeSnake;
         for(int i = positions.size()-1;i>=0;i--){
